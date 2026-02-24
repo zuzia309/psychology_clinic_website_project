@@ -9,6 +9,11 @@ prisma/*.db-journal
 prisma/*.sqlite
 prisma/*.sqlite3
 
+prisma/prisma/*.db
+prisma/prisma/*.db-journal
+prisma/prisma/*.sqlite
+prisma/prisma/*.sqlite3
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
