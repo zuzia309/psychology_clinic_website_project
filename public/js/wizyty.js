@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const scheduledAtHidden = document.getElementById("scheduledAt");
 
   const OPEN_HOUR = 10;
-  const CLOSE_HOUR = 19;
-  const STEP_MIN = 30;
+  const CLOSE_HOUR = 20;
+  const STEP_MIN = 60;
 
   function pad2(n) { return String(n).padStart(2, "0"); }
 
@@ -40,9 +40,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const out = [];
     for (let h = OPEN_HOUR; h < CLOSE_HOUR; h++) {
       out.push(`${pad2(h)}:00`);
-      out.push(`${pad2(h)}:30`);
     }
-    return out.filter(t => t !== "20:00");
+    return out.filter(t => t !== "20:00"); // jeśli CLOSE_HOUR = 20
   }
 
   const ALL_TIMES = buildTimes();
@@ -152,8 +151,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (minutes < open || minutes >= close) return `Godziny przyjęć: ${pad2(OPEN_HOUR)}:00–${pad2(CLOSE_HOUR)}:00.`;
 
     const m = tmp.getMinutes();
-    if (!(m === 0 || m === 30)) return "Wybierz godzinę tylko o :00 lub :30.";
-
+    if (m !== 0) return "Wybierz godzinę tylko o pełnej godzinie (:00).";
+    
     return null;
   }
 
@@ -182,7 +181,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <input class="dtInput" type="datetime-local"
               value="${dtLocal}"
               data-original="${dtLocal}"
-              step="1800">
+              step="3600">
             <input class="noteInput" type="text" placeholder="Zmień notatkę (opcjonalnie)" value="${a.note ? escapeHtml(a.note) : ""}">
             <button class="btn-mini btnSave" type="button">Zapisz zmiany</button>
             <button class="btn-mini btn-danger btnDelete" type="button">Anuluj (usuń)</button>
@@ -199,7 +198,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     list.querySelectorAll(".dtInput").forEach(inp => {
       inp.min = minStr;
-      inp.step = "1800";
+      inp.step = "3600";
     });
   }
 

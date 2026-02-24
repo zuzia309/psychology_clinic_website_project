@@ -4,7 +4,15 @@ export function notFound(req, res) {
 
 export function errorHandler(err, req, res, next) {
   console.error(err);
-  res.status(err.status || 500).json({
+
+
+  if (err?.code === "P2002") {
+    return res.status(409).json({
+      error: "Ten termin jest już zajęty dla wybranego terapeuty. Wybierz inną godzinę.",
+    });
+  }
+
+  return res.status(err.status || 500).json({
     error: err.message || "Server error",
   });
 }
