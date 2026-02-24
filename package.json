@@ -1,0 +1,19 @@
+{
+  "name": "projekt_poradnia",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node server/index.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "prisma": "^6.19.2"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  }
+}

@@ -1,0 +1,139 @@
+main {
+  padding: 100px 60px 80px;
+}
+
+.onas-sekcja-gorna {
+  background-color: #e2eee7;
+  border-radius: 0 0 40px 40px;
+  padding: 40px 40px 60px;
+}
+
+.onas-kontener {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.onas-tytul h1 {
+  font-family: var(--font-tytul);
+  font-size: 32px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 30px;
+}
+
+.onas-uklad {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.onas-tekst-panel {
+    background-color: #f3faf7;
+    border-radius: 40px;
+    padding: 30px 40px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #4e6369;
+    text-align: justify;
+  }
+
+.onas-tekst-panel p {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.onas-zdjecie-panel {
+background: none;
+padding: 0;
+border-radius: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.onas-zdjecie-panel img {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  object-fit: cover;
+}
+
+.onas-zalety-sekcja {
+  background-color: #f5faf8;
+  padding: 70px 40px 90px;
+}
+
+.onas-zalety-sekcja h2 {
+  text-align: center;
+  font-family: var(--font-tytul);
+  font-size: 24px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 40px;
+}
+
+.zalety-lista {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  row-gap: 26px;
+  column-gap: 30px;
+}
+
+.zaleta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.zaleta-numer {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background-color: var(--kolor-akcent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.zaleta-tekst {
+  flex: 1;
+  background-color: #e4f0ea;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 14px;
+}
+
+/* Responsywność */
+@media (max-width: 900px) {
+  main {
+    padding: 100px 20px 70px;
+  }
+
+  .onas-uklad {
+    grid-template-columns: 1fr;
+  }
+
+  .onas-zdjecie-panel {
+    order: -1;
+  }
+
+  .zalety-lista {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .zalety-lista {
+    grid-template-columns: 1fr;
+  }
+
+  .onas-tekst-panel {
+    padding: 20px 24px;
+  }
+}

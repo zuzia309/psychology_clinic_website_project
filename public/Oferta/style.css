@@ -1,0 +1,191 @@
+html {
+  scroll-behavior: smooth;
+}
+
+main {
+  padding: 100px 60px 80px;
+}
+
+.oferta-sekcja-gorna {
+  background-color: #e2eee7;
+  border-radius: 0 0 40px 40px;
+  padding: 50px 40px 60px;
+}
+
+.oferta-kontener {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.oferta-sekcja-gorna h1 {
+  text-align: center;
+  font-family: var(--font-tytul);
+  font-size: 32px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 25px;
+}
+
+.oferta-opis {
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #4e6369;
+}
+
+.oferta-sekcja-glowna {
+  background-color: #f5faf8;
+  padding: 70px 40px 90px;
+}
+
+.oferta-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 2.4fr;
+  gap: 40px;
+}
+
+/* LEWE MENU – lista usług */
+.oferta-menu {
+  position: sticky;
+  top: 120px;
+  align-self: flex-start;
+}
+
+.oferta-menu h2 {
+  font-family: var(--font-tytul);
+  font-size: 20px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+
+.oferta-menu nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.oferta-menu a {
+  display: block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background-color: #e2eee7;
+  font-size: 14px;
+  color: #3f555c;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.oferta-menu a:hover {
+  background-color: #cfe3da;
+  transform: translateX(3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* PRAWA KOLUMNA – bloki usług */
+.oferta-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+/* pojedyncza usługa */
+.usluga-blok {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 26px 30px;
+    background-color: #ffffff;
+    border-radius: 30px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+
+
+.usluga-blok:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.10);
+}
+
+.usluga-opis h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: var(--kolor-czcionki);
+}
+
+.usluga-opis p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4e6369;
+  text-align: justify;
+}
+
+.usluga-cennik {
+    border-top: 1px solid #e2eee7;
+    padding-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .usluga-cennik h4 {
+    margin: 0 0 6px;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #5f757c;
+  }
+  
+  .usluga-cennik p {
+    display: flex;
+    justify-content: space-between;
+    margin: 2px 0;
+    font-size: 15px;
+    color: #3f555c;
+  }
+
+.usluga-cennik p span:first-child {
+  padding-right: 10px;
+}
+
+/* Kotwice dla nawigacji bocznej – miejsce, do którego przewija strona */
+.usluga-kotwica {
+    height: 1px;
+    scroll-margin-top: 35vh; /* gdzie ma sie zatrzymac widok*/
+  }
+
+/* RESPONSYWNOŚĆ */
+@media (max-width: 1000px) {
+  main {
+    padding: 100px 30px 70px;
+  }
+
+  .oferta-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .oferta-menu {
+    position: static;
+    margin-bottom: 30px;
+  }
+
+  .usluga-blok {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .oferta-sekcja-gorna {
+    padding: 40px 20px 50px;
+  }
+
+  .oferta-sekcja-glowna {
+    padding: 50px 20px 70px;
+  }
+
+  .usluga-blok {
+    padding: 20px 18px;
+  }
+}

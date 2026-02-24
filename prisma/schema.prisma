@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Therapist {
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  role         String
+  bio          String
+  imageUrl     String?       // np. "/img/osoba1.jpeg"
+  createdAt    DateTime      @default(now())
+  appointments Appointment[]
+}
+
+model Service {
+  id           Int           @id @default(autoincrement())
+  title        String        @unique
+  description  String
+  price        Int           // w zł
+  durationMin  Int
+  createdAt    DateTime      @default(now())
+  appointments Appointment[]
+}
+
+model Appointment {
+  id          Int      @id @default(autoincrement())
+  fullName    String
+  email       String
+  phone       String?
+  note        String?
+  scheduledAt DateTime
+  createdAt   DateTime @default(now())
+
+  therapistId Int
+  therapist   Therapist @relation(fields: [therapistId], references: [id], onDelete: Cascade)
+
+  serviceId   Int
+  service     Service   @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  fullName  String
+  email     String
+  phone     String?
+  message   String
+  createdAt DateTime @default(now())
+}

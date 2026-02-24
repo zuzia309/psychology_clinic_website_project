@@ -1,0 +1,395 @@
+@layer base, layout;
+
+@layer base {
+    :root {
+        --tlo-glowne: #e7f0ec;
+        --font-tytul: 'Playfair Display', serif;
+        --font-podstawowy: 'Arial', sans-serif;
+        --kolor-czcionki: #223338;
+        --kolor-akcent: #6b9080;
+        --kolor-akcent-jasny: #cfe3da;
+    }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-podstawowy);
+        background-color: var(--tlo-glowne);
+        color: var(--kolor-czcionki);
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+}
+
+@layer layout {
+
+    /* naglowek */
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: #dbe8e2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px 40px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        z-index: 1000;
+    }
+
+    .poradnia-logo {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .poradnia-logo img {
+        height: 60px;
+    }
+
+    .poradnia-tekst {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .poradnia-nazwa {
+        font-size: 26px;
+        font-weight: bold;
+        color: var(--kolor-czcionki);
+    }
+
+    .poradnia-opis {
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #5f757c;
+    }
+
+    nav {
+        display: flex;
+        gap: 25px;
+    }
+
+    nav a {
+        color: var(--kolor-czcionki);
+        font-weight: 500;
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: color 0.3s;
+    }
+
+    nav a:hover {
+        color: var(--kolor-akcent);
+    }
+
+
+    main {
+        min-height: calc(100vh - 130px);
+        margin-top: 80px;
+        padding: 20px;
+    }
+
+    /* sopka */
+    footer {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        background-color: transparent;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 10px 20px;
+    }
+
+    .social-media {
+        margin-right: 30px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 14px;
+    }
+
+    .social-media a {
+        color: var(--kolor-czcionki);
+        font-size: 24px;
+        transition: color 0.3s;
+    }
+
+    .social-media a:hover {
+        color: var(--kolor-akcent);
+    }
+
+    .social-media a i {
+        width: 24px;
+        height: 24px;
+        text-align: center;
+        line-height: 24px;
+        font-size: 22px;
+    }
+
+    .social-media a i.fa-linkedin {
+        font-size: 21px;
+    }
+
+    .baner-powitalny-sekcja {
+        background: linear-gradient(90deg, #e7f0ec 0%, #dbe8e2 100%);
+        padding: 90px 10% 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .baner-powitalny-kontener {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+        gap: 60px;
+    }
+
+    .baner-powitalny-tekst {
+        flex: 1;
+        text-align: left;
+    }
+
+    .baner-powitalny-tekst h1 {
+        font-family: var(--font-tytul);
+        font-size: 42px;
+        color: var(--kolor-czcionki);
+        margin-bottom: 20px;
+    }
+
+    .baner-powitalny-tekst p {
+        color: #4e6369;
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 25px;
+        max-width: 480px;
+    }
+
+    .umow-konsultacje-przycisk {
+        background-color: var(--kolor-akcent);
+        color: #fff;
+        padding: 12px 28px;
+        border-radius: 30px;
+        font-weight: bold;
+        transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 8px 18px rgba(107, 144, 128, 0.4);
+    }
+
+    .umow-konsultacje-przycisk:hover {
+        background-color: #567566;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 26px rgba(107, 144, 128, 0.55);
+    }
+
+    .baner-powitalny-obrazek {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .baner-powitalny-obrazek img {
+        width: 340px;
+        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.12));
+        transition: transform 0.4s ease;
+        border-radius: 30px;
+    }
+
+    .baner-powitalny-obrazek img:hover {
+        transform: translateY(-5px);
+    }
+
+   /* OBSZARY WSPARCIA */
+.obszary-sekcja {
+    position: relative;
+    background-color: #f5faf8;
+    padding: 90px 40px 120px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.obszary-sekcja h2 {
+    font-family: var(--font-tytul);
+    font-size: 34px;
+    color: var(--kolor-czcionki);
+    margin: 0 0 50px;
+    letter-spacing: 0.5px;
+}
+
+.obszary-galeria {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-items: stretch;
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+    .obszar {
+        background-color: #ffffff;
+        border-radius: 20px;
+        padding: 22px 22px 26px;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+        text-align: left;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .obszar h3 {
+        font-size: 18px;
+        margin-bottom: 12px;
+        color: var(--kolor-akcent);
+    }
+
+    .obszar p {
+        font-size: 15px;
+        color: #4e6369;
+        margin: 0;
+    }
+
+    .obszar:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08);
+    }
+
+    .dekoracja-lewa {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 460px;
+        height: auto;
+        object-fit: cover;
+        z-index: 0;
+        opacity: 0.85;
+        filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.10));
+    }
+
+    /* godziny otwarcia poradni */
+    .godziny {
+        background-color: #dbe8e2;
+        padding: 80px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .godziny-box {
+        display: flex;
+        align-items: center;
+        background-color: #f5faf8;
+        border-radius: 25px;
+        padding: 30px 50px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        gap: 20px;
+    }
+
+    .godziny-box i {
+        font-size: 50px;
+        color: var(--kolor-akcent);
+    }
+
+    .godziny-box h3 {
+        font-family: var(--font-tytul);
+        color: var(--kolor-czcionki);
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .godziny-box p {
+        color: #4e6369;
+        font-size: 16px;
+        margin: 2px 0;
+    }
+
+    /* RESPONSYWNOŚĆ */
+    @media (max-width: 900px) {
+        .baner-powitalny-kontener {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .baner-powitalny-tekst {
+            text-align: center;
+            margin: 0;
+        }
+
+        .baner-powitalny-tekst p {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .baner-powitalny-obrazek {
+            margin-top: 20px;
+        }
+
+        .obszary-sekcja h2,
+        .obszary-galeria {
+            margin-left: 0;
+            text-align: center;
+        }
+
+        .obszary-galeria {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .dekoracja-lewa {
+            display: none;
+        }
+    }
+
+    @media (max-width: 600px) {
+        header {
+            flex-direction: column;
+            padding: 10px;
+            gap: 10px;
+        }
+
+        nav {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .godziny-box {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .obszary-galeria {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 1200px) {
+        .dekoracja-lewa {
+            width: 320px;
+            top: -20px;
+            left: -40px;
+            opacity: 0.8;
+        }
+
+        .obszary-galeria {
+            margin-left: 0;
+            padding-left: 60px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .obszary-galeria {
+            padding-left: 0;
+        }
+    }
+}

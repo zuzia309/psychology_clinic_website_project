@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8">
+    <title>Kontakt – Harmonia</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  </head>
+  <body>
+    <header>
+      <div class="poradnia-logo">
+        <a href="../index.html">
+          <img src="../img/logo.png" alt="Logo poradni">
+        </a>
+        <div class="poradnia-tekst">
+          <span class="poradnia-nazwa">Harmonia</span>
+          <span class="poradnia-opis">poradnia psychologiczna</span>
+        </div>
+      </div>
+      <nav>
+        <a href="../O nas/index.html">O NAS</a>
+        <a href="../Oferta/index.html">OFERTA</a>
+        <a href="../Zespol/index.html">ZESPÓŁ</a>
+        <a href="../Wizyty/index.html">WIZYTY</a>
+        <a href="index.html">KONTAKT</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- GoRNA SEKCJA: kontakt i formularz -->
+      <section class="kontakt-sekcja-gorna">
+        <div class="kontakt-kontener kontakt-layout">
+          <!-- LEWA KOLUMNA – dane kontaktowe -->
+          <div class="kontakt-dane">
+            <h1>Kontakt</h1>
+
+            <div class="kontakt-blok">
+              <h3>Adres</h3>
+              <p>
+                Poradnia psychologiczna „Harmonia”<br>
+                ul. Profesora Stanisława Łojasiewicza 11<br>
+                30-348 Kraków
+              </p>
+            </div>
+
+            <div class="kontakt-blok">
+              <h3>Email</h3>
+              <p>kontakt@harmonia-poradnia.pl</p>
+            </div>
+
+            <div class="kontakt-blok">
+              <h3>Numery telefonu</h3>
+              <p>
+                +48 600 123 456<br>
+                +48 600 987 321
+              </p>
+            </div>
+          </div>
+
+          <!-- PRAWA KOLUMNA – formularz -->
+          <div class="kontakt-formularz">
+  <h2>Skontaktuj się z nami</h2>
+
+  <form id="contactForm" novalidate>
+    <div class="pole">
+      <input type="text" name="fullName" placeholder="Imię i nazwisko" required minlength="3">
+    </div>
+
+    <div class="pole">
+      <input type="tel" name="phone" placeholder="Numer telefonu (opcjonalnie)">
+    </div>
+
+    <div class="pole">
+      <input type="email" name="email" placeholder="Adres email" required>
+    </div>
+
+    <div class="pole">
+      <textarea name="message" rows="5" placeholder="Wiadomość..." required minlength="10"></textarea>
+    </div>
+
+    <button type="submit" class="btn-wyslij">Prześlij</button>
+    <p id="formStatus" class="form-status" aria-live="polite"></p>
+  </form>
+</div>
+        </div>
+      </section>
+
+      <!-- DOLNA SEKCJA mapa i adres -->
+      <section class="kontakt-mapa-sekcja">
+        <div class="kontakt-kontener">
+          <h2>Jak nas znaleźć?</h2>
+
+          <div class="kontakt-mapa-layout">
+            <!-- iframe z mapy ggogle -->
+            <div class="mapa-kontener">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4147.139746572153!2d19.90805546044632!3d50.028703003453145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165c86018c6659%3A0x80a5d4885f54d809!2sCentrum%20Dydaktyki%20Wydzia%C5%82u%20FAIS!5e1!3m2!1spl!2spl!4v1764709972339!5m2!1spl!2spl"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
+
+            <!-- dojazd -->
+            <div class="mapa-adres">
+                <h3>Najwygodniej dotrzeć do nas</h3>
+              
+                <p>
+                  Poradnia znajduje się na terenie kampusu uniwersyteckiego na Ruczaju,
+                  kilka minut pieszo od pętli „Czerwone Maki”.
+                </p>
+              
+                <p><strong>🚋 Tramwajem:</strong><br>
+                  Linie: 18, 52<br>
+                  Wysiądź na przystanku <strong>Czerwone Maki P+R</strong> – dojście ok. 6 min.
+                </p>
+              
+                <p><strong>🚍 Autobusem:</strong><br>
+                  Linie: 196, 194, 114, 136<br>
+                  Wysiądź na przystanku <strong>Kobierzyńska</strong> lub <strong>Chmieleniec</strong>.
+                </p>
+              
+                <p><strong>🚗 Samochodem:</strong><br>
+                  W okolicy dostępne są liczne miejsca parkingowe – ogólnodostępne
+                  oraz przykampusowe.
+                </p>
+              
+                <p><strong>🚶‍♂️ Wejście:</strong><br>
+                  Gabinet mieści się w pobliżu Centrum Dydaktyki Wydziału FAIS.
+                  Wejście główne od strony ul. Łojasiewicza.
+                </p>
+              </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="social-media">
+        <span class="copyright">
+          &copy; <span id="year"></span> Harmonia
+        </span>
+        <a href="#" title="Facebook"><i class="fa-brands fa-square-facebook"></i></a>
+        <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+    </footer>
+    <script src="../js/api.js"></script>
+<script src="../js/kontakt.js"></script>
+  </body>
+</html>

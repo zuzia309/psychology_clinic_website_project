@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Nasz zespół – Harmonia</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="poradnia-logo">
+        <a href="../index.html">
+          <img src="../img/logo.png" alt="Logo poradni" />
+        </a>
+        <div class="poradnia-tekst">
+          <span class="poradnia-nazwa">Harmonia</span>
+          <span class="poradnia-opis">poradnia psychologiczna</span>
+        </div>
+      </div>
+      <nav>
+        <a href="../O nas/index.html">O NAS</a>
+        <a href="../Oferta/index.html">OFERTA</a>
+        <a href="index.html">ZESPÓŁ</a>
+        <a href="../Wizyty/index.html">WIZYTY</a>
+        <a href="../Kontakt/index.html">KONTAKT</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="zespol-sekcja-gorna">
+        <div class="zespol-kontener">
+          <h1>Nasz zespół</h1>
+
+          <div class="zespol-opis-panel">
+            <p>
+              W Harmonii tworzymy kameralny zespół psychologów i psychoterapeutów, których łączy uważność,
+              szacunek i otwartość na doświadczenie każdej osoby. Pracujemy w bezpiecznej atmosferze, w której
+              możesz mówić o sobie we własnym tempie.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="zespol-lista-sekcja">
+        <div class="zespol-kontener">
+          <p id="teamError" style="color:#8b1d1d; font-size:22px; text-align:center;"></p>
+          <div id="teamList"></div>
+        </div>
+      </section>
+      
+      <script src="../js/zespol.js"></script>
+    </main>
+
+    <footer>
+      <div class="social-media">
+        <span class="copyright">&copy; <span id="year"></span> Harmonia</span>
+        <a href="#" title="Facebook"><i class="fa-brands fa-square-facebook"></i></a>
+        <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+    </footer>
+
+    <!-- WAŻNE: ścieżka do JS -->
+    <script type="module" src="../js/api.js"></script>
+    <script type="module" src="../js/zespol.js"></script>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Wizyty – Harmonia</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<header>
+  <div class="poradnia-logo">
+    <a href="../index.html">
+      <img src="../img/logo.png" alt="Logo poradni">
+    </a>
+    <div class="poradnia-tekst">
+      <span class="poradnia-nazwa">Harmonia</span>
+      <span class="poradnia-opis">poradnia psychologiczna</span>
+    </div>
+  </div>
+  <nav>
+    <a href="../O nas/index.html">O NAS</a>
+    <a href="../Oferta/index.html">OFERTA</a>
+    <a href="../Zespol/index.html">ZESPÓŁ</a>
+    <a href="index.html">WIZYTY</a>
+    <a href="../Kontakt/index.html">KONTAKT</a>
+  </nav>
+</header>
+
+<main>
+  <section class="wizyty-sekcja-gorna">
+    <div class="wizyty-kontener">
+      <h1 class="wizyty-title">Umów wizytę</h1>
+
+      <div class="wizyty-form-card wizyty-form-centered">
+        <h2 class="wizyty-card-title">Formularz rezerwacji</h2>
+
+        <form id="appointmentForm" novalidate>
+          <div class="wizyty-grid">
+            <div class="pole">
+              <label>Imię i nazwisko</label>
+              <input name="fullName" type="text" placeholder="np. Anna Kowalska" required minlength="3" />
+            </div>
+
+            <div class="pole">
+              <label>Email</label>
+              <input name="email" type="email" placeholder="np. anna@email.com" required />
+            </div>
+
+            <div class="pole">
+              <label>Telefon</label>
+              <input name="phone" type="tel" placeholder="np. 600 123 456" required />
+            </div>
+
+            <div class="pole">
+              <label>Data</label>
+              <input id="scheduledDate" type="date" required />
+            </div>
+
+            <!-- chipsy godzin -->
+            <div class="pole full">
+              <label>Godzina</label>
+
+              <p id="timeHint" class="time-hint">
+                Wybierz datę, aby zobaczyć dostępne godziny.
+              </p>
+
+              <div id="timeChips" class="time-chips" role="list"></div>
+
+              <input type="hidden" id="scheduledAt" name="scheduledAt" />
+            </div>
+
+            <div class="pole">
+              <label>Terapeuta</label>
+              <select name="therapistId" id="therapistSelect" required>
+                <option value="" selected disabled>Wybierz terapeutę</option>
+              </select>
+            </div>
+
+            <div class="pole">
+              <label>Usługa</label>
+              <select name="serviceId" id="serviceSelect" required>
+                <option value="" selected disabled>Wybierz usługę</option>
+              </select>
+            </div>
+
+            <div class="pole full">
+              <label>Notatka (opcjonalnie)</label>
+              <textarea name="note" rows="4" placeholder="Np. krótko opisz, z czym przychodzisz"></textarea>
+            </div>
+          </div>
+
+          <button class="btn-wyslij btn-wide" type="submit">
+            Zarezerwuj wizytę
+          </button>
+
+          <p id="apptStatus" class="form-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="wizyty-lista-sekcja">
+    <div class="wizyty-kontener">
+      <h2>Sprawdź / edytuj wizytę</h2>
+
+      <div class="check-box">
+        <input id="lookupId" type="number" placeholder="Wpisz numer rezerwacji (ID)" min="1" />
+        <button id="lookupBtn" class="btn-mini" type="button">Pokaż</button>
+      </div>
+
+      <div id="appointmentsList" class="wizyty-lista"></div>
+      <p id="listStatus" class="list-status" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="social-media">
+    <span class="copyright">
+      &copy; <span id="year"></span> Harmonia
+    </span>
+    <a href="#" title="Facebook"><i class="fa-brands fa-square-facebook"></i></a>
+    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+  </div>
+</footer>
+
+<script src="../js/api.js"></script>
+<script src="../js/wizyty.js"></script>
+</body>
+</html>
