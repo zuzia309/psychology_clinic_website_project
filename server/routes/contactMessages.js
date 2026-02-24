@@ -1,10 +1,8 @@
-// server/routes/contactMessages.js
 import express from "express";
 import { createContactMessage, listContactMessages, deleteContactMessage } from "../models/contactMessages.model.js";
 
 const router = express.Router();
 
-// GET list (żeby spełnić "wyświetlanie danych z bazy")
 router.get("/", async (req, res, next) => {
   try {
     const items = await listContactMessages();
@@ -14,12 +12,10 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// POST create (formularz kontaktowy)
 router.post("/", async (req, res, next) => {
   try {
     const { fullName, email, phone, message } = req.body;
 
-    // Walidacja (prosta i wystarczająca do projektu)
     if (!fullName || fullName.trim().length < 3) {
       return res.status(400).json({ error: "Imię i nazwisko musi mieć min. 3 znaki." });
     }
@@ -37,7 +33,6 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// DELETE (żeby mieć komplet CRUD na czymś prostym)
 router.delete("/:id", async (req, res, next) => {
   try {
     const id = Number(req.params.id);

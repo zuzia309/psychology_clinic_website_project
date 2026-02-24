@@ -1,4 +1,3 @@
-// server/routes/therapists.js
 import { Router } from "express";
 import {
   listTherapists,

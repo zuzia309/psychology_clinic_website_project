@@ -1,4 +1,3 @@
-// server/models/services.model.js
 import { prisma } from "../prismaClient.js";
 
 export async function listServices() {

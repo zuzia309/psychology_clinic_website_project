@@ -18,9 +18,8 @@ form?.addEventListener("submit", async (e) => {
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || "Błąd wysyłki");
 
-    statusEl.textContent = "✅ Wiadomość zapisana. Dziękujemy!";
+    statusEl.textContent = "Wiadomość zapisana. Dziękujemy!";
     form.reset();
   } catch (err) {
-    statusEl.textContent = `❌ ${err.message}`;
-  }
+    statusEl.textContent = `Błąd: ${err.message}`;  }
 });

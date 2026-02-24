@@ -1,4 +1,3 @@
-// server/models/therapists.model.js
 import { prisma } from "../prismaClient.js";
 
 export async function listTherapists() {

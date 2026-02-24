@@ -1,4 +1,3 @@
-// server/db/db.js
 import path from "path";
 import fs from "fs";
 import sqlite3 from "sqlite3";
@@ -8,7 +7,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-let db; // singleton
+let db; 
 
 export async function getDb() {
   if (db) return db;
@@ -21,10 +20,8 @@ export async function getDb() {
     driver: sqlite3.Database,
   });
 
-  // SQLite: włącz relacje (FK)
   await db.exec("PRAGMA foreign_keys = ON;");
 
-  // Zainicjalizuj tabele (bezpiecznie – CREATE TABLE IF NOT EXISTS)
   const initSqlPath = path.join(__dirname, "init.sql");
   const initSql = fs.readFileSync(initSqlPath, "utf-8");
   await db.exec(initSql);

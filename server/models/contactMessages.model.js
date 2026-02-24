@@ -1,4 +1,3 @@
-// server/models/contactMessages.model.js
 import { prisma } from "../prismaClient.js";
 
 export async function listContactMessages() {

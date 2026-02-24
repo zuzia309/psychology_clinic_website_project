@@ -1,4 +1,3 @@
-// prisma/seed.js
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
@@ -95,12 +94,12 @@ async function main() {
     });
   }
 
-  console.log("✅ Seed zakończony sukcesem");
+  console.log("Seed zakończony sukcesem");
 }
 
 main()
   .catch((e) => {
-    console.error("❌ Seed error:", e);
+    console.error("Seed error:", e);
     process.exit(1);
   })
   .finally(async () => {

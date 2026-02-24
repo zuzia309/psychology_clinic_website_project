@@ -1,18 +1,14 @@
-// public/js/zespol.js
-
 async function loadTeam() {
-  const container = document.querySelector("#teamList"); // tu będą wstawiani terapeuci
-  const errorBox = document.querySelector("#teamError"); // tu pokażemy błąd
+  const container = document.querySelector("#teamList");
+  const errorBox = document.querySelector("#teamError");
 
   try {
-    // WAŻNE: zaczynamy od / żeby nie robiło /Zespol/api/...
     const res = await fetch("/api/therapists");
 
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
     const therapists = await res.json();
 
-    // czyścimy
     container.innerHTML = "";
 
     therapists.forEach((t) => {
