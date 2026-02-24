@@ -22,7 +22,7 @@ app.use("/api/services", servicesRouter);
 app.use("/api/appointments", appointmentsRouter);
 app.use("/api/contact", contactRouter);
 
-// FRONT (public)
+// FRONT
 app.use(express.static(path.join(__dirname, "../public")));
 
 // błędy

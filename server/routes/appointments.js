@@ -9,12 +9,9 @@ import {
 const router = express.Router();
 
 function normPhone(v) {
-  // usuń spacje, myślniki itd.
   return String(v || "").replace(/[^\d+]/g, "").trim();
 }
 
-// (opcjonalnie) endpoint do podglądu wszystkich wizyt (admin / dev)
-// Uwaga: front może korzystać z /api/appointments do wyliczania zajętych godzin.
 router.get("/", async (req, res, next) => {
   try {
     const items = await listAppointments();
@@ -24,7 +21,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// LOOKUP: ID + telefon
+// ID + telefon
 router.post("/lookup", async (req, res, next) => {
   try {
     const id = Number(req.body?.id);
@@ -95,14 +92,12 @@ router.post("/", async (req, res, next) => {
       return res.status(400).json({ error: "Wybierz poprawny termin wizyty." });
     }
 
-    // tylko pełna godzina
     if (dt.getMinutes() !== 0) {
       return res
         .status(400)
         .json({ error: "Wybierz godzinę tylko o pełnej godzinie (:00)." });
     }
 
-    // od jutra
     const now = new Date();
     const startOfTomorrow = new Date(now);
     startOfTomorrow.setDate(now.getDate() + 1);
@@ -116,7 +111,6 @@ router.post("/", async (req, res, next) => {
       return res.status(400).json({ error: "W niedziele poradnia jest nieczynna." });
     }
 
-    // godziny: 10:00–20:00, ostatnia startowa 19:00
     const minutesFromMidnight = dt.getHours() * 60 + dt.getMinutes();
     const open = 10 * 60;
     const close = 20 * 60;
@@ -138,7 +132,6 @@ router.post("/", async (req, res, next) => {
 
     res.status(201).json(saved);
   } catch (e) {
-    // Prisma unique constraint (termin zajęty u terapeuty)
     if (e?.code === "P2002") {
       return res
         .status(409)
@@ -148,7 +141,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// PATCH zabezpieczony telefonem (z lookup)
+// PATCH
 router.patch("/:id", async (req, res, next) => {
   try {
     const id = Number(req.params.id);
@@ -218,7 +211,6 @@ router.patch("/:id", async (req, res, next) => {
     const updated = await patchAppointment(id, { scheduledAt, note });
     res.json(updated);
   } catch (e) {
-    // Prisma unique constraint (termin zajęty u terapeuty)
     if (e?.code === "P2002") {
       return res
         .status(409)
@@ -228,7 +220,7 @@ router.patch("/:id", async (req, res, next) => {
   }
 });
 
-// DELETE zabezpieczony telefonem (query: ?phone=... lub body)
+// DELETE
 router.delete("/:id", async (req, res, next) => {
   try {
     const id = Number(req.params.id);

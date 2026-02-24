@@ -1,4 +1,3 @@
-// public/js/wizyty.js
 document.addEventListener("DOMContentLoaded", async () => {
   const form = document.getElementById("appointmentForm");
   const apptStatus = document.getElementById("apptStatus");
@@ -14,17 +13,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   const lookupBtn = document.getElementById("lookupBtn");
   const lookupReset = document.getElementById("lookupReset");
 
-  // po poprawnym lookup zapisujemy telefon do PATCH/DELETE
   let verifiedPhone = null;
 
-  // ===== TERMIN: data + chipsy godzin + hidden scheduledAt =====
+  // ===== TERMIN data i godzina =====
   const scheduledDate = document.getElementById("scheduledDate");
   const timeChips = document.getElementById("timeChips");
   const timeHint = document.getElementById("timeHint");
   const scheduledAtHidden = document.getElementById("scheduledAt");
 
   const OPEN_HOUR = 10;
-  const CLOSE_HOUR = 20; // ostatnia startowa 19:00
+  const CLOSE_HOUR = 20;
   const STEP_MIN = 60;
 
   function pad2(n) { return String(n).padStart(2, "0"); }
@@ -38,7 +36,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function toLocalDateTimeValue(d) {
-    // YYYY-MM-DDTHH:mm (dla datetime-local)
     return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}T${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
   }
 
@@ -52,13 +49,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     for (let h = OPEN_HOUR; h < CLOSE_HOUR; h++) {
       out.push(`${pad2(h)}:00`);
     }
-    // CLOSE_HOUR=20 => generuje do 19:00 włącznie (ok)
     return out;
   }
 
   const ALL_TIMES = buildTimes();
 
-  // min data: jutro
   const now = new Date();
   const tomorrow = new Date(now);
   tomorrow.setDate(now.getDate() + 1);
@@ -213,23 +208,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     const tmp = new Date(localValue);
     if (Number.isNaN(tmp.getTime())) return "Wybierz poprawny termin wizyty.";
 
-    // jutro lub później
     const now2 = new Date();
     const startOfTomorrow = new Date(now2);
     startOfTomorrow.setDate(now2.getDate() + 1);
     startOfTomorrow.setHours(0, 0, 0, 0);
     if (tmp < startOfTomorrow) return "Termin wizyty musi być od jutra.";
 
-    // niedziela
+    // niedziela off
     if (tmp.getDay() === 0) return "W niedziele poradnia jest nieczynna. Wybierz inny dzień.";
 
-    // godziny 10–20 (ostatnia startowa 19:00)
     const minutes = tmp.getHours() * 60 + tmp.getMinutes();
     const open = OPEN_HOUR * 60;
     const close = CLOSE_HOUR * 60;
     if (minutes < open || minutes >= close) return "Godziny przyjęć: 10:00–20:00 (ostatnia: 19:00).";
 
-    // pełna godzina
     if (tmp.getMinutes() !== 0) return "Wybierz godzinę tylko o pełnej godzinie (:00).";
 
     return null;
@@ -281,7 +273,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       `;
     }).join("");
 
-    // ustaw min + step na edycji
     const now3 = new Date();
     const tmr = new Date(now3);
     tmr.setDate(now3.getDate() + 1);
@@ -365,7 +356,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // ===== LOOKUP (ID + TELEFON) =====
+  // ===== ID + TELEFON =====
   lookupBtn?.addEventListener("click", async () => {
     listStatus.textContent = "";
     list.innerHTML = "";
@@ -411,6 +402,26 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const id = Number(card.getAttribute("data-id"));
     if (!Number.isFinite(id)) return;
+
+    // ===== TRYB EDYCJI =====
+
+    // wejście w edycję
+    if (e.target.classList.contains("btnEdit")) {
+    card.classList.add("is-editing");
+    return;
+    }
+
+    // anulowanie edycji
+    if (e.target.classList.contains("btnCancelEdit")) {
+    const dtInput = card.querySelector(".dtInput");
+    const noteInput = card.querySelector(".noteInput");
+
+    if (dtInput) dtInput.value = dtInput.dataset.original || "";
+    if (noteInput) noteInput.value = noteInput.dataset.original || "";
+
+    card.classList.remove("is-editing");
+    return;
+    }
 
     const viewActions = card.querySelector(".viewActions");
     const editPanel = card.querySelector(".editPanel");
@@ -477,18 +488,24 @@ document.addEventListener("DOMContentLoaded", async () => {
           scheduledAt: dtLocal ? dtLocal : null,
           note: note ? note : null,
         });
-
-        // rerender karty, żeby termin/meta od razu się zaktualizowały
+      
         renderAppointments([updated]);
+      
         listStatus.textContent = "Zmiany zapisane.";
-
+        setTimeout(() => {
+          if (listStatus.textContent === "Zmiany zapisane.") listStatus.textContent = "";
+        }, 2500);
+      
+        const newCard = list.querySelector(`.wizyta[data-id="${id}"]`);
+        if (newCard) newCard.classList.remove("is-editing");
+      
         await refreshAppointmentsForBusy();
         renderTimeChips(scheduledDate?.value || "");
       } catch (err3) {
         showNotice(card, "err", err3.message || "Nie udało się zapisać zmian.");
         if (dtInput) dtInput.value = originalValue;
       }
-
+      
       return;
     }
 
@@ -501,7 +518,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
 
       try {
-        // DELETE id + phone jako query (bo api.del nie wysyła body)
+        // DELETE
         await api.del(`/api/appointments/${id}?phone=${encodeURIComponent(verifiedPhone)}`);
 
         list.innerHTML = "";

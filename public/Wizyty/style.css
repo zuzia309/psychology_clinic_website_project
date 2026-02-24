@@ -123,7 +123,7 @@ main {
     color: #7a1c1c;
   }
   
-  /* ===== DÓŁ: LISTA WIZYT ===== */
+  /* ===== DÓŁ: wziyty ===== */
   .wizyty-lista-sekcja {
     background: #f5faf8;
     padding: 60px 40px 90px;
@@ -409,6 +409,29 @@ main {
 }
 .time-chip.is-disabled:hover{
   transform:none;
+}
+
+/* === TRYB EDYCJI === */
+.wizyta .editPanel { 
+  display: none; 
+}
+
+.wizyta .viewActions { 
+  display: flex; 
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* po wejściu w edycję */
+.wizyta.is-editing .editPanel { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 10px; 
+  margin-top: 10px;
+}
+
+.wizyta.is-editing .viewActions { 
+  display: none; 
 }
   
   @media (max-width: 520px) {
