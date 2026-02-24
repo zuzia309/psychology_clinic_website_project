@@ -370,6 +370,46 @@ main {
     font-size: 13px;
     color: #4e6369;
   }
+
+  /* Chipsy godzin */
+#timeChips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:6px;
+}
+
+.time-chip{
+  border: 1px solid rgba(0,0,0,0.10);
+  background:#fff;
+  border-radius:999px;
+  padding:8px 12px;
+  font-weight:700;
+  cursor:pointer;
+  transition: transform .12s ease, opacity .12s ease;
+}
+
+.time-chip:hover{
+  transform: translateY(-1px);
+}
+
+.time-chip.is-selected{
+  background: var(--kolor-akcent);
+  color:#fff;
+  border-color: transparent;
+}
+
+.time-chip.is-disabled{
+  background:#eef2f1;
+  color:#81939a;
+  border-color: rgba(0,0,0,0.08);
+  cursor:not-allowed;
+  opacity: .65;
+  transform:none;
+}
+.time-chip.is-disabled:hover{
+  transform:none;
+}
   
   @media (max-width: 520px) {
     .time-chips { grid-template-columns: repeat(2, minmax(0, 1fr)); }

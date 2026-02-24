@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const scheduledAtHidden = document.getElementById("scheduledAt");
 
   const OPEN_HOUR = 10;
-  const CLOSE_HOUR = 19;
-  const STEP_MIN = 30;
+  const CLOSE_HOUR = 20;
+  const STEP_MIN = 60;
 
   function pad2(n) { return String(n).padStart(2, "0"); }
 
@@ -40,9 +40,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const out = [];
     for (let h = OPEN_HOUR; h < CLOSE_HOUR; h++) {
       out.push(`${pad2(h)}:00`);
-      out.push(`${pad2(h)}:30`);
     }
-    return out.filter(t => t !== "20:00");
+    return out.filter(t => t !== "20:00"); // jeśli CLOSE_HOUR = 20
   }
 
   const ALL_TIMES = buildTimes();
@@ -77,11 +76,26 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     timeHint.textContent = "Wybierz godzinę wizyty";
 
+    const therapistId = therapistSelect?.value;
+    const busySet = getBusyTimesFor(dateStr, therapistId);
+
     ALL_TIMES.forEach((t) => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "time-chip";
       btn.textContent = t;
+
+      const isBusy = busySet.has(t);
+
+      if (!therapistId) {
+      btn.disabled = true;
+      btn.classList.add("is-disabled");
+       btn.title = "Najpierw wybierz terapeutę";
+      } else if (isBusy) {
+      btn.disabled = true;
+       btn.classList.add("is-disabled");
+       btn.title = "Termin zajęty";
+      }
 
       btn.addEventListener("click", () => {
         timeChips.querySelectorAll(".time-chip").forEach(b => b.classList.remove("is-selected"));
@@ -94,10 +108,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  scheduledDate?.addEventListener("change", () => {
+  scheduledDate?.addEventListener("change", async () => {
     apptStatus.textContent = "";
     apptStatus.classList.remove("ok", "err");
-
+  
     if (scheduledDate.value && isSundayDateStr(scheduledDate.value)) {
       apptStatus.textContent = "W niedziele poradnia jest nieczynna. Wybierz inny dzień.";
       apptStatus.classList.add("err");
@@ -105,8 +119,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       renderTimeChips("");
       return;
     }
-
+  
+    try { allAppointments = await api.get("/api/appointments"); } catch {}
+  
     renderTimeChips(scheduledDate.value);
+  });
+
+  therapistSelect?.addEventListener("change", async () => {
+    try { allAppointments = await api.get("/api/appointments"); } catch {}
+    renderTimeChips(scheduledDate?.value || "");
   });
 
   renderTimeChips(scheduledDate?.value || "");
@@ -152,9 +173,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (minutes < open || minutes >= close) return `Godziny przyjęć: ${pad2(OPEN_HOUR)}:00–${pad2(CLOSE_HOUR)}:00.`;
 
     const m = tmp.getMinutes();
-    if (!(m === 0 || m === 30)) return "Wybierz godzinę tylko o :00 lub :30.";
-
+    if (m !== 0) return "Wybierz godzinę tylko o pełnej godzinie (:00).";
+    
     return null;
+  }
+
+  function toYMD(d) {
+    return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+  }
+  
+  function getBusyTimesFor(dateStr, therapistId) {
+    const busy = new Set();
+    if (!dateStr || !therapistId) return busy;
+  
+    allAppointments.forEach(a => {
+      if (!a.scheduledAt) return;
+      if (Number(a.therapistId) !== Number(therapistId)) return;
+  
+      const d = new Date(a.scheduledAt);
+      if (toYMD(d) !== dateStr) return;
+  
+      busy.add(`${pad2(d.getHours())}:${pad2(d.getMinutes())}`);
+    });
+  
+    return busy;
   }
 
   function renderAppointments(items) {
@@ -182,7 +224,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <input class="dtInput" type="datetime-local"
               value="${dtLocal}"
               data-original="${dtLocal}"
-              step="1800">
+              step="3600">
             <input class="noteInput" type="text" placeholder="Zmień notatkę (opcjonalnie)" value="${a.note ? escapeHtml(a.note) : ""}">
             <button class="btn-mini btnSave" type="button">Zapisz zmiany</button>
             <button class="btn-mini btn-danger btnDelete" type="button">Anuluj (usuń)</button>
@@ -199,7 +241,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     list.querySelectorAll(".dtInput").forEach(inp => {
       inp.min = minStr;
-      inp.step = "1800";
+      inp.step = "3600";
     });
   }
 
@@ -347,7 +389,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (dtInput) dtInput.dataset.original = dtInput.value;
         showNotice(card, "ok", "Zmiany zapisane.");
+        
         await loadAppointments();
+
+        try { allAppointments = await api.get("/api/appointments"); } catch {}
+        renderTimeChips(scheduledDate?.value || "");
       } catch (err3) {
         showNotice(card, "err", err3.message || "Nie udało się zapisać zmian.");
         if (dtInput) dtInput.value = originalValue;
