@@ -198,6 +198,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     setTimeout(() => box.remove(), 3500);
   }
 
+  function setListStatus(text, ms = 3500) {
+    if (!listStatus) return;
+    listStatus.textContent = text || "";
+    if (!text) return;
+  
+    window.clearTimeout(setListStatus._t);
+    setListStatus._t = window.setTimeout(() => {
+      listStatus.textContent = "";
+    }, ms);
+  }
+
   function validateScheduledAtLocal(localValue) {
     const tmp = new Date(localValue);
     if (Number.isNaN(tmp.getTime())) return "Wybierz poprawny termin wizyty.";

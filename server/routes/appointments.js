@@ -132,7 +132,7 @@ router.post("/", async (req, res, next) => {
 });
 
 // PATCH zabezpieczony telefonem (z lookup)
-router.patch("/:id", async (req, res, next) => {
+("/:id", async (req, res, next) => {
   try {
     const id = Number(req.params.id);
     if (!Number.isFinite(id)) return res.status(400).json({ error: "Niepoprawne ID" });
@@ -146,7 +146,7 @@ router.patch("/:id", async (req, res, next) => {
     const found = items.find((a) => a.id === id);
     if (!found) return res.status(404).json({ error: "Nie znaleziono wizyty." });
 
-    if (normPhone(found.phone) !== phone) {
+    if (normPhone(found.phone) !== phrouter.patchone) {
       return res.status(403).json({ error: "Niepoprawny numer telefonu dla tej rezerwacji." });
     }
 
@@ -188,6 +188,12 @@ router.patch("/:id", async (req, res, next) => {
     const updated = await patchAppointment(id, { scheduledAt, note });
     res.json(updated);
   } catch (e) {
+    // Prisma unique constraint (termin zajęty u terapeuty)
+    if (e?.code === "P2002") {
+      return res.status(409).json({
+        error: "Ten termin jest już zajęty dla wybranego terapeuty."
+      });
+    }
     next(e);
   }
 });
